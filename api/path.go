@@ -49,7 +49,11 @@ func ApiPathGetUrl(alist_url string, params *map[string]string, file_names []str
 		for _, v := range pathGetMessage.Data.Files {
 			for _, vname := range file_names {
 				if v.Name == vname {
-					urls = append(urls, v.Thumbnail)
+					if v.Url != "" {
+						urls = append(urls, v.Url)
+					} else {
+						urls = append(urls, v.Thumbnail)
+					}
 					break
 				}
 			}
