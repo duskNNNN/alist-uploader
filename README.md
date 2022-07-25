@@ -1,6 +1,4 @@
-# alist-uploader
-a cmd line for alist visitor upload
-
+# github.com/duskNNNN/alist-uploader
 
 > of course, `alist` server must be rebulid
 

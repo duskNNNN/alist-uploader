@@ -17,7 +17,7 @@ func FileWrite(path []string) {
 	for i, _ := range path {
 		buf.WriteString(path[i])
 		buf.WriteByte('\n')
-		if num > 10000 {
+		if num > 1000 {
 			buf.Flush()
 			num = 0
 		}

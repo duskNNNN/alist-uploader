@@ -15,16 +15,6 @@ import (
 	"time"
 )
 
-var (
-	HttpClient *http.Client
-)
-
-func InitHttpClient() {
-	HttpClient = &http.Client{
-		Timeout: 60 * time.Second,
-	}
-}
-
 // upload file
 func ApiUploadFile(alist_url string, params map[string]string, file io.Reader, filename string) bool {
 	alist_upload_url := alist_url + "/api/public/upload"
@@ -49,17 +39,20 @@ func ApiUploadFile(alist_url string, params map[string]string, file io.Reader, f
 	}
 	req, err := http.NewRequest("POST", alist_upload_url, body)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+	}
+	HttpClient := &http.Client{
+		Timeout: 3600 * time.Second,
 	}
 	req.Header.Add("Content-Type", writer.FormDataContentType())
 	resp, err := HttpClient.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	defer resp.Body.Close()
 	resp_body, readErr := ioutil.ReadAll(resp.Body)
 	if readErr != nil {
-		log.Fatal(readErr.Error())
+		log.Println(readErr.Error())
 		return false
 	}
 	var uploadMessage Response.Message
